@@ -50,7 +50,7 @@ const Color & Camera::trace_ray(const Vec3& origin, const Vec3& direction, const
 	Shape* closest_shape = nullptr;
 		
 	closest_t = closest_intersection(origin, direction, t_min, t_max, shapes, closest_shape);
-	if (!closest_shape) return Color(0, 0, 0);	// return background color
+	if (!closest_shape) return Color(200, 200, 200);	// return background color
 	
 	Vec3 point = origin + closest_t * direction;
 	Vec3 normal = closest_shape->get_normal_at_point(point);

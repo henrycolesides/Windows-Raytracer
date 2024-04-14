@@ -5,6 +5,7 @@
 #endif
 
 #include <stdint.h>
+#include <iostream>
 #include <vector>
 #include "framework.h"
 #include "WindowsRaytracer.h"
@@ -69,21 +70,39 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // Shapes in the scene
     std::vector<Shape *> shapes;
-    shapes.push_back(new Sphere((Vec3(0.0, -1.0, 3.0)), 1.0, Color(255, 0, 0), 500.0, 0.2f));
-    shapes.push_back(new Sphere((Vec3(2.0, 0.0, 4.0)), 1.0, Color(0, 0, 255), 500.0, 0.0f));
-    shapes.push_back(new Sphere((Vec3(-2.0, 0.0, 4.0)), 1.0, Color(0, 255, 0), 10.0, 0.6f));
-	shapes.push_back(new Sphere((Vec3(0.0, -5001.0, 0.0)), 5000.0, Color(255, 255, 0), 1000.0, 0.5f));
-	shapes.push_back(new Triangle(Vec3(-4.0, -0.5, 5.0), Vec3(0.0, 5.0, 5.0), Vec3(4.0, -0.5, 5.0), Color(0, 255, 255), 500.0, 0.9f));
+    //shapes.push_back(new Sphere((Vec3(0.0, -1.0, 3.0)), 1.0, Color(255, 0, 0), 500.0, 0.2f));
+    //shapes.push_back(new Sphere((Vec3(2.0, 0.0, 4.0)), 1.0, Color(0, 0, 255), 500.0, 0.0f));
+    //shapes.push_back(new Sphere((Vec3(-2.0, 0.0, 4.0)), 1.0, Color(0, 255, 0), 10.0, 0.6f));
+	shapes.push_back(new Sphere((Vec3(0.0, -5005.0, 0.0)), 5000.0, Color(200, 0, 0), 1000.0, 0.5f));
+	//shapes.push_back(new Triangle(Vec3(-4.0, -0.5, 5.0), Vec3(0.0, 5.0, 5.0), Vec3(4.0, -0.5, 5.0), Color(0, 255, 255), 500.0, 0.9f));
+//	shapes.push_back(new Triangle(Vec3(-2.5, -1.0, 1.0), Vec3(0.0, 4.0, 4.0), Vec3(2.5, -1.0, 1.0), Color(0, 255, 255), 500.0, 0.1f));
+//    koch_snowflake3d(Vec3(-2.5, -1.0, 1.0), Vec3(0.0, 4.0, 4.0), Vec3(2.5, -1.0, 1.0), 0, 2, shapes);
+ 
+ //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(0.5, -0.433, 0), Color(0, 255, 255), 100.0, 0.0f));
+ //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+ //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+ //   shapes.push_back(new Triangle(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+  //   koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(-0.5, -0.433, 0), 1, 2, shapes);
+ //   koch_snowflake3d(Vec3(0.0, 0.866, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(-0.5, -0.433, 0.0), 1, 2, shapes);
+ //   koch_snowflake3d(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), 1, 2, shapes);
+ //   koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), 1, 2, shapes);
+
+
+    
+    shapes.push_back(new Triangle(Vec3(-1.0, 1.73205, 0.0), Vec3(-1.0, -1.73205, 0.0), Vec3(2.0, 0.0, 0.0), Color(0, 255, 255), 300.0, 0.2f));  
+    koch_snowflake3d( Vec3(-1.0, -1.73205, 0.0), Vec3(-1.0, 1.73205, 0.0), Vec3(2.0, 0.0, 0.0), 1, 3, shapes);
+	
+ //shapes.push_back(new Triangle(Vec3(-0.28867, -0.25, 1.0), Vec3(0.0, 0.25, 1.0), Vec3(0.28867, -0.25, 1.0), Color(0, 255, 255), 500.0, 0.0f));
     // Lights in the scene
     std::vector<Light*> lights;
     lights.push_back(new AmbientLight(0.2f));
-    lights.push_back(new PointLight(0.6f, Vec3(2, 1, 0)));
-    lights.push_back(new DirectionalLight(0.2f, Vec3(1, 4, 4)));
+    lights.push_back(new PointLight(0.6f, Vec3(2.0, 1.0, 0.0)));
+    lights.push_back(new DirectionalLight(0.2f, Vec3(1.0, 4.0, 4.0)));
        
     Scene scene(shapes, lights);
 
     // Setup camera:
-    Camera camera(Vec3(0.0, 1.0, -5.0), 720, 720, 1.0, 1.0, 1.0);
+    Camera camera(Vec3(0.0, 0.25, -5.0), 720, 720, 1.0, 1.0, 1.0);
 
     // Create DIB section, give camera's pixels as pixel buffer to BitBlit
 	if (frame_bitmap) DeleteObject(frame_bitmap);
