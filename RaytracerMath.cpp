@@ -133,8 +133,15 @@ bool Vec3::operator!=(const Vec3& op2) const
         || values[2] != op2.values[2]);
 }
 
-
 // Friend operators
+Vec3 cross(const Vec3& op1, const Vec3& op2)
+{
+    return Vec3((op1.values[1] * op2.values[2]) - (op1.values[2] * op2.values[1]),
+        (op1.values[2] * op2.values[0]) - (op1.values[0] * op2.values[2]),
+        (op1.values[0] * op2.values[1]) - (op1.values[1] * op2.values[0]));
+}
+
+
 Vec3 operator*(const Vec3& op1, const float op2)
 {
     Vec3 temp = Vec3(op1.values[0] * op2, op1.values[1] * op2, op1.values[2] * op2);

@@ -203,6 +203,11 @@ const Vec3 & Sphere::get_position() const
     return position;
 }
 
+Vec3 Sphere::get_normal_at_point(const Vec3& point) const
+{
+    return point - position;
+}
+
 const Color & Sphere::get_color() const
 {
     return color;
@@ -242,6 +247,89 @@ Vec3 Sphere::intersect_ray(const Vec3 & origin, const Vec3 & direction) const
     float t2 = (-b - std::sqrt(discriminant)) / (2 * a);
     return Vec3(t1, t2, 0.0);
 }
+
+// Sphere class
+Triangle::Triangle() : a(Vec3()), b(Vec3()), c(Vec3()), normal(Vec3()), color(Color()), specularity(-1.0), reflectivity(0.0) {}
+Triangle::Triangle(const Vec3& a, const Vec3 & b, const Vec3 & c, const Color& color, const float specularity, const float reflectivity)
+ : a(a), b(b), c(c), color(color), specularity(specularity), reflectivity(reflectivity) 
+{
+    Vec3 ab = b - a;
+    Vec3 bc = c - b;
+    normal = cross(ab, bc);
+    return;
+}
+
+uint32_t Triangle::map_color()
+{
+	return color.map_color();
+}
+
+uint32_t Triangle::map_color(const float scalar) const
+{
+	return color.map_color(scalar);
+}
+
+const Vec3 & Triangle::get_position() const
+{
+    return a;
+}
+
+Vec3 Triangle::get_normal_at_point(const Vec3& point) const
+{
+    return normal;
+}
+
+const Color & Triangle::get_color() const
+{
+    return color;
+}
+
+const float Triangle::get_specularity() const
+{
+    return specularity;
+}
+
+const float Triangle::get_reflectivity() const
+{
+    return reflectivity;
+}
+
+//void Triangle::scale_color(const float scalar)
+//{
+//	color *= scalar;
+//	return;
+//}
+
+Vec3 Triangle::intersect_ray(const Vec3& origin, const Vec3& direction) const
+{
+    // If ray is parallel, return invalid t's (with t_min always > 0, a return x or y of zero means not valid)
+    float n_dot_d = normal * direction;
+    if (n_dot_d == 0) return Vec3(0.0, 0.0, 0.0);
+    
+    float t = ((normal * a) - (normal * origin)) / n_dot_d;
+    
+    // If ray is not visible, return invalid t
+    // Need to do this step here because we must calculate point 
+    // For inside-outside check
+    if (t < 0) return Vec3(0.0, 0.0, 0.0);
+
+    // Inside-outside check
+    // Is the intersection point in the triangle?
+    Vec3 point = origin + t * direction;
+    Vec3 C;
+
+    C = cross(b - a, point - a);
+    if (normal * C < 0) return Vec3(0.0, 0.0, 0.0);
+
+    C = cross(c - b, point - b);
+    if (normal * C < 0) return Vec3(0.0, 0.0, 0.0);
+
+    C = cross(a - c, point - c);
+    if (normal * C < 0) return Vec3(0.0, 0.0, 0.0);
+    
+    return Vec3(t, 0.0, 0.0);
+}
+
 
 
 // ABC interface for all light classes

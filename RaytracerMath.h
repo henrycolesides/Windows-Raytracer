@@ -40,11 +40,11 @@ class Vec3
 		friend Vec3 operator*(const float op1, const Vec3& op2);
 		friend Vec3 operator/(const Vec3& op1, const float op2);
 		friend Vec3 operator/(const float op1, const Vec3& op2);
-
+		
+		friend Vec3 cross(const Vec3& op1, const Vec3& op2);
 		float length() const;
 		void set(const char dimension, const float value);
 		float get(const char dimension) const;
-
 	private:
 		float values[3];
 };

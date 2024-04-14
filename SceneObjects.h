@@ -62,8 +62,9 @@ class Shape
 
 		virtual uint32_t map_color() = 0;
 		virtual uint32_t map_color(const float scalar) const = 0;
-		
+	
 		virtual const Vec3 & get_position() const = 0;
+		virtual Vec3 get_normal_at_point(const Vec3& point) const = 0;
 		virtual const Color & get_color() const = 0;
 		virtual const float get_specularity() const = 0;	// Will move specularity and related functions into material class
 		virtual const float get_reflectivity() const = 0;
@@ -81,6 +82,7 @@ class Sphere : public Shape
 		void scale_color(const float scalar);
 	
 		const Vec3 & get_position() const;
+		Vec3 get_normal_at_point(const Vec3& point) const;
 		const Color & get_color() const;
 		const float get_specularity() const;
 		const float get_reflectivity() const;
@@ -100,6 +102,32 @@ class Sphere : public Shape
 };
 
 
+class Triangle : public Shape
+{
+	public:
+		Triangle();
+		Triangle(const Vec3& v0, const Vec3& v1, const Vec3& v2, const Color& color, const float specularity, const float reflectivity);
+		
+		uint32_t map_color();
+		uint32_t map_color(const float scalar) const;
+		
+		const Vec3 & get_position() const;
+		Vec3 get_normal_at_point(const Vec3& point) const;
+		const Color & get_color() const;
+		const float get_specularity() const;
+		const float get_reflectivity() const;
+
+		Vec3 intersect_ray(const Vec3& origin, const Vec3& direction) const;
+
+	private:
+		Vec3 a;
+		Vec3 b;
+		Vec3 c;
+		Vec3 normal;
+		Color color;
+		float specularity;
+		float reflectivity;
+};
 
 
 

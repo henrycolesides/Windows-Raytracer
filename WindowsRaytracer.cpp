@@ -70,10 +70,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // Shapes in the scene
     std::vector<Shape *> shapes;
     shapes.push_back(new Sphere((Vec3(0.0, -1.0, 3.0)), 1.0, Color(255, 0, 0), 500.0, 0.2f));
-    shapes.push_back(new Sphere((Vec3(2.0, 0.0, 4.0)), 1.0, Color(0, 0, 255), 500.0, 0.3f));
-    shapes.push_back(new Sphere((Vec3(-2.0, 0.0, 4.0)), 1.0, Color(0, 255, 0), 10.0, 0.4f));
-    shapes.push_back(new Sphere((Vec3(0.0, -5001.0, 0.0)), 5000.0, Color(255, 255, 0), 1000.0, 0.5f));
-    
+    shapes.push_back(new Sphere((Vec3(2.0, 0.0, 4.0)), 1.0, Color(0, 0, 255), 500.0, 0.0f));
+    shapes.push_back(new Sphere((Vec3(-2.0, 0.0, 4.0)), 1.0, Color(0, 255, 0), 10.0, 0.6f));
+	shapes.push_back(new Sphere((Vec3(0.0, -5001.0, 0.0)), 5000.0, Color(255, 255, 0), 1000.0, 0.5f));
+	shapes.push_back(new Triangle(Vec3(-4.0, -0.5, 5.0), Vec3(0.0, 5.0, 5.0), Vec3(4.0, -0.5, 5.0), Color(0, 255, 255), 500.0, 0.9f));
     // Lights in the scene
     std::vector<Light*> lights;
     lights.push_back(new AmbientLight(0.2f));
@@ -83,7 +83,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     Scene scene(shapes, lights);
 
     // Setup camera:
-    Camera camera(Vec3(0.0, 0.0, -0.4), 720, 720, 1.0, 1.0, 1.0);
+    Camera camera(Vec3(0.0, 1.0, -5.0), 720, 720, 1.0, 1.0, 1.0);
 
     // Create DIB section, give camera's pixels as pixel buffer to BitBlit
 	if (frame_bitmap) DeleteObject(frame_bitmap);

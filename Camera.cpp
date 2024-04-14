@@ -53,16 +53,18 @@ const Color & Camera::trace_ray(const Vec3& origin, const Vec3& direction, const
 	if (!closest_shape) return Color(0, 0, 0);	// return background color
 	
 	Vec3 point = origin + closest_t * direction;
-	Vec3 normal = point - closest_shape->get_position();
+	Vec3 normal = closest_shape->get_normal_at_point(point);
 	normal = (normal / normal.length());
-	
-	using namespace std::placeholders;
-	for (auto light : lights)
+
 	{
-		intensity += light->compute_lighting(point, normal, -direction, closest_shape->get_specularity(), std::bind(&Camera::closest_intersection, this, _1, _2, _3, _4, _5, _6), shapes);
+		using namespace std::placeholders;
+		for (auto light : lights)
+		{
+			intensity += light->compute_lighting(point, normal, -direction, closest_shape->get_specularity(), std::bind(&Camera::closest_intersection, this, _1, _2, _3, _4, _5, _6), shapes);
+		}
+		//Color local_color = closest_shape->get_color() * intensity;
 	}
 	Color local_color = closest_shape->get_color() * intensity;
-	
 	float r = closest_shape->get_reflectivity();
 	if (recursion_depth <= 0 || r <= 0) return local_color;
 	

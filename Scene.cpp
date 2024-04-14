@@ -11,6 +11,9 @@ Scene::Scene(const std::vector<Shape*>& shapes, const std::vector<Light*>& light
 	{
 		Sphere * sp_ptr = dynamic_cast<Sphere *>(shape);	
 		if (sp_ptr) this->shapes.push_back(new Sphere(*sp_ptr));
+
+		Triangle* tri_ptr = dynamic_cast<Triangle*>(shape);
+		if (tri_ptr) this->shapes.push_back(new Triangle(*tri_ptr));
 	}
 
 	for (auto light : lights)
