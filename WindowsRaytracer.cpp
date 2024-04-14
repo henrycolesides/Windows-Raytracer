@@ -78,14 +78,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //	shapes.push_back(new Triangle(Vec3(-2.5, -1.0, 1.0), Vec3(0.0, 4.0, 4.0), Vec3(2.5, -1.0, 1.0), Color(0, 255, 255), 500.0, 0.1f));
 //    koch_snowflake3d(Vec3(-2.5, -1.0, 1.0), Vec3(0.0, 4.0, 4.0), Vec3(2.5, -1.0, 1.0), 0, 2, shapes);
  
- //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(0.5, -0.433, 0), Color(0, 255, 255), 100.0, 0.0f));
- //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
- //   shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), Color(0, 255, 255), 100.0, 0.0f));
- //   shapes.push_back(new Triangle(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
-  //   koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(-0.5, -0.433, 0), 1, 2, shapes);
- //   koch_snowflake3d(Vec3(0.0, 0.866, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(-0.5, -0.433, 0.0), 1, 2, shapes);
- //   koch_snowflake3d(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), 1, 2, shapes);
- //   koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), 1, 2, shapes);
+  //  shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(0.5, -0.433, 0), Color(0, 255, 255), 100.0, 0.0f));
+  //  shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+  //  shapes.push_back(new Triangle(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+  //  shapes.push_back(new Triangle(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), Color(0, 255, 255), 100.0, 0.0f));
+  //  koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.866, 0.0), Vec3(-0.5, -0.433, 0), 1, 2, shapes);
+  //  koch_snowflake3d(Vec3(0.0, 0.866, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(-0.5, -0.433, 0.0), 1, 2, shapes);
+  //  koch_snowflake3d(Vec3(-0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.5, -0.433, 0.0), 1, 2, shapes);
+  //  koch_snowflake3d(Vec3(0.5, -0.433, 0.0), Vec3(0.0, 0.289, -0.866), Vec3(0.0, 0.866, 0.0), 1, 2, shapes);
 
 
     

@@ -22,10 +22,11 @@ void koch_snowflake3d(const Vec3& a, const Vec3& b, const Vec3& c, int depth, in
 
 	Vec3 normal = cross(ab, bc);
 	normal = normal / normal.length();
-
-	float length = distance_between_points(a_mid_b, b_mid_c);
 	
-	Vec3 d = centroid + (length * normal);
+	float length = distance_between_points(a_mid_b, b_mid_c);
+	float height = std::sqrt(std::pow(length, 2) - std::pow(distance_between_points(a_mid_b, centroid), 2));
+
+	Vec3 d = centroid + (height * normal);
 	
 	shapes.push_back(new Triangle(d, b_mid_c, a_mid_b, Color(0, 255, 255), 300.0, 0.2f));
 	shapes.push_back(new Triangle(d, c_mid_a, b_mid_c, Color(0, 255, 255), 300.0, 0.2f));
