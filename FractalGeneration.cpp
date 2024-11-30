@@ -17,7 +17,6 @@ void koch_snowflake3d(const Vec3& a, const Vec3& b, const Vec3& c, int depth, in
 
 	Vec3 centroid = a_mid_b + ((c - a_mid_b) / 3);
     Vec3 ab = b - a;
-//    Vec3 bc = c - b;
 	Vec3 bc = c - a;
 
 	Vec3 normal = cross(ab, bc);
@@ -28,9 +27,9 @@ void koch_snowflake3d(const Vec3& a, const Vec3& b, const Vec3& c, int depth, in
 
 	Vec3 d = centroid + (height * normal);
 	
-	shapes.push_back(new Triangle(d, b_mid_c, a_mid_b, Color(0, 255, 255), 300.0, 0.2f));
-	shapes.push_back(new Triangle(d, c_mid_a, b_mid_c, Color(0, 255, 255), 300.0, 0.2f));
-	shapes.push_back(new Triangle(d, a_mid_b, c_mid_a, Color(0, 255, 255), 300.0, 0.2f));
+	shapes.push_back(new Triangle(d, a_mid_b, b_mid_c, Color(255, 255, 255), 300.0, 0.2f, INFINITY));
+	shapes.push_back(new Triangle(d, b_mid_c, c_mid_a, Color(255, 255, 255), 300.0, 0.2f, INFINITY));
+	shapes.push_back(new Triangle(d, c_mid_a, a_mid_b, Color(255, 255, 255), 300.0, 0.2f, INFINITY));
 	
 	koch_snowflake3d(a_mid_b, d, c_mid_a, depth + 1, max, shapes);
 	koch_snowflake3d(b_mid_c, d, a_mid_b, depth + 1, max, shapes);

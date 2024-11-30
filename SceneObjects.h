@@ -68,6 +68,7 @@ class Shape
 		virtual const Color & get_color() const = 0;
 		virtual const float get_specularity() const = 0;	// Will move specularity and related functions into material class
 		virtual const float get_reflectivity() const = 0;
+		virtual const float get_refractive_index() const = 0;
 };
 
 
@@ -75,7 +76,7 @@ class Sphere : public Shape
 {
 	public:
 		Sphere();
-		Sphere(const Vec3 & position, const float radius, const Color & color, const float specularity, const float reflectivity);
+		Sphere(const Vec3 & position, const float radius, const Color & color, const float specularity, const float reflectivity, const float refractive_index);
 		
 		uint32_t map_color();
 		uint32_t map_color(const float scalar) const;
@@ -86,6 +87,7 @@ class Sphere : public Shape
 		const Color & get_color() const;
 		const float get_specularity() const;
 		const float get_reflectivity() const;
+		const float get_refractive_index() const;
 
 		Vec3 intersect_ray(const Vec3 & origin, const Vec3 & direction) const;
 
@@ -99,6 +101,7 @@ class Sphere : public Shape
 		// And R is the reflection vecter from incident ray of light L 
 		//  (reflected across some surface's normal)
 		float reflectivity;
+		float refractive_index;
 };
 
 
@@ -106,7 +109,7 @@ class Triangle : public Shape
 {
 	public:
 		Triangle();
-		Triangle(const Vec3& v0, const Vec3& v1, const Vec3& v2, const Color& color, const float specularity, const float reflectivity);
+		Triangle(const Vec3& v0, const Vec3& v1, const Vec3& v2, const Color& color, const float specularity, const float reflectivity, const float refractive_index);
 		
 		uint32_t map_color();
 		uint32_t map_color(const float scalar) const;
@@ -116,6 +119,7 @@ class Triangle : public Shape
 		const Color & get_color() const;
 		const float get_specularity() const;
 		const float get_reflectivity() const;
+		const float get_refractive_index() const;
 
 		Vec3 intersect_ray(const Vec3& origin, const Vec3& direction) const;
 
@@ -127,6 +131,7 @@ class Triangle : public Shape
 		Color color;
 		float specularity;
 		float reflectivity;
+		float refractive_index;
 };
 
 

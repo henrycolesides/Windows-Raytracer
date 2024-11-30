@@ -184,9 +184,9 @@ Color operator-(const float op1, const Color& op2)
 Shape::~Shape() { return; }
 
 // Sphere class
-Sphere::Sphere() : position(Vec3()), radius(0.0), color(Color()), specularity(-1.0), reflectivity(0.0) {}
-Sphere::Sphere(const Vec3& position, const float radius, const Color& color, const float specularity, const float reflectivity)
-   : position(position), radius(radius), color(color), specularity(specularity), reflectivity(reflectivity) { }
+Sphere::Sphere() : position(Vec3()), radius(0.0), color(Color()), specularity(-1.0), reflectivity(0.0), refractive_index(INFINITY) {}
+Sphere::Sphere(const Vec3& position, const float radius, const Color& color, const float specularity, const float reflectivity, const float refractive_index)
+   : position(position), radius(radius), color(color), specularity(specularity), reflectivity(reflectivity), refractive_index(refractive_index) { }
 
 uint32_t Sphere::map_color()
 {
@@ -223,6 +223,11 @@ const float Sphere::get_reflectivity() const
     return reflectivity;
 }
 
+const float Sphere::get_refractive_index() const
+{
+    return refractive_index;
+}
+
 void Sphere::scale_color(const float scalar)
 {
     color *= scalar;
@@ -249,9 +254,9 @@ Vec3 Sphere::intersect_ray(const Vec3 & origin, const Vec3 & direction) const
 }
 
 // Sphere class
-Triangle::Triangle() : a(Vec3()), b(Vec3()), c(Vec3()), normal(Vec3()), color(Color()), specularity(-1.0), reflectivity(0.0) {}
-Triangle::Triangle(const Vec3& a, const Vec3 & b, const Vec3 & c, const Color& color, const float specularity, const float reflectivity)
- : a(a), b(b), c(c), color(color), specularity(specularity), reflectivity(reflectivity) 
+Triangle::Triangle() : a(Vec3()), b(Vec3()), c(Vec3()), normal(Vec3()), color(Color()), specularity(-1.0), reflectivity(0.0), refractive_index(INFINITY) {}
+Triangle::Triangle(const Vec3& a, const Vec3 & b, const Vec3 & c, const Color& color, const float specularity, const float reflectivity, const float refractive_index)
+ : a(a), b(b), c(c), color(color), specularity(specularity), reflectivity(reflectivity), refractive_index(refractive_index)
 {
     Vec3 ab = b - a;
     Vec3 bc = c - b;
@@ -294,6 +299,10 @@ const float Triangle::get_reflectivity() const
     return reflectivity;
 }
 
+const float Triangle::get_refractive_index() const
+{
+    return refractive_index;
+}
 //void Triangle::scale_color(const float scalar)
 //{
 //	color *= scalar;

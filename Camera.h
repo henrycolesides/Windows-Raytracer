@@ -21,7 +21,7 @@ class Camera
 		uint32_t * & get_pixels();
 
 		void render(const Scene & scene);
-		const Color & trace_ray(const Vec3 & origin, const Vec3 & direction, const float t_min, const float t_max, const int recursion_depth, const std::vector<Shape *> & shapes, const std::vector<Light *> & lights);
+		const Color & trace_ray(const Vec3 & origin, const Vec3 & direction, const float refraction_index, const float t_min, const float t_max, const int recursion_depth, const std::vector<Shape *> & shapes, const std::vector<Light *> & lights);
 		float closest_intersection(const Vec3 & origin, const Vec3 & direction, const float t_min, const float t_max, const std::vector<Shape *> & shapes, Shape * & closest_shape);
 
 	private:

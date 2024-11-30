@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <functional>
+#include <cmath>
 #include "Camera.h"
 #include "RaytracerMath.h"
 //#include "RaytracerMath.h"
@@ -27,6 +28,8 @@ void Camera::render(const Scene & scene)
 	
 	const std::vector<Shape *> shapes = scene.get_shapes();
 	const std::vector<Light *> lights = scene.get_lights();
+	
+	float angle;
 
 	Vec3 ray_direction = Vec3(0.0, 0.0, viewport_distance);
 	for (int j = -(frame_height / 2); j < (frame_height / 2); ++j)
@@ -38,19 +41,20 @@ void Camera::render(const Scene & scene)
 			
 			ray_direction.set(X, convert_viewport_x(i));
 			ray_direction.set(Y, convert_viewport_y(j));
-			pixels[(y * frame_width) + x] = trace_ray(origin, ray_direction, 1, INFINITY, 3, shapes, lights).map_color();
+			pixels[(y * frame_width) + x] = trace_ray(origin, ray_direction, 1.0, 1, INFINITY, 3, shapes, lights).map_color();
 		}
 	}
 }
 
-const Color & Camera::trace_ray(const Vec3& origin, const Vec3& direction, const float t_min, const float t_max, const int recursion_depth, const std::vector<Shape*>& shapes, const std::vector<Light*>& lights)
+const Color & Camera::trace_ray(const Vec3& origin, const Vec3& direction, const float refraction_index, const float t_min, const float t_max, const int recursion_depth, const std::vector<Shape*>& shapes, const std::vector<Light*>& lights)
 {
 	float intensity = 0.0;
 	float closest_t = INFINITY;
 	Shape* closest_shape = nullptr;
 		
 	closest_t = closest_intersection(origin, direction, t_min, t_max, shapes, closest_shape);
-	if (!closest_shape) return Color(200, 200, 200);	// return background color
+	//if (!closest_shape) return Color(255, 255, 255);	// return background color
+	if (!closest_shape) return Color(0, 0, 0);	// return background color
 	
 	Vec3 point = origin + closest_t * direction;
 	Vec3 normal = closest_shape->get_normal_at_point(point);
@@ -72,7 +76,31 @@ const Color & Camera::trace_ray(const Vec3& origin, const Vec3& direction, const
 	Vec3 reflected = 2.0 * normal * (normal * -direction) + direction;
  
 	// Recursive call to find reflected color through ray bouncing
-	Color reflected_color = trace_ray(point, reflected, 0.075f, INFINITY, recursion_depth - 1, shapes, lights);
+	Color reflected_color = trace_ray(point, reflected, refraction_index, 0.075f, INFINITY, recursion_depth - 1, shapes, lights);
+
+	// Transparency check
+	if (closest_shape->get_refractive_index() < INFINITY)
+	{
+		// Snell's law for angle of refraction ray:
+		
+		// Angle of incidence:
+		// Dot product w/ theta: a * b = ||a||||b||cos(theta)
+		// to
+		// theta = cos^-1((a * b) / ||a||||b||)
+		float a_incidence = std::acos((direction * closest_shape->get_normal_at_point(point)) / 
+							(direction.length() * closest_shape->get_normal_at_point(point).length()));
+
+		// Snell's law for angle of refraction:
+		// (sin(a1) / sin(a2)) = (n2 / n1)
+		// to
+		// a2 = arcsin(sin(a1) * (n1 / n2))
+		float a_refraction = std::asin(std::sin(a_incidence) * (refraction_index / closest_shape->get_refractive_index()));
+
+		//n1(incident x normal) = n2(transmitted x normal)
+
+
+	}
+
 
 	// Return calculated local color weighted by reflectivity and the color from where the ray bounced
 	return (local_color * (1 - r)) + (reflected_color * r);
